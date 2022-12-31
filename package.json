@@ -1,0 +1,35 @@
+{
+  "version": "0.8.0",
+  "description": "ATLAS Map UI",
+  "main": "atlasmap.js",
+  "name": "atlasmap",
+  "author": "antihax",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "style-loader": "^3.3.1",
+    "svg-inline-loader": "^0.8.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.3",
+    "leaflet-curve": "^1.0.0",
+    "leaflet-easybutton": "^2.4.0",
+    "leaflet-imageoverlay-rotated": "^0.2.1",
+    "ngraph.graph": "^20.0.1",
+    "ngraph.path": "^1.4.0"
+  }
+}
