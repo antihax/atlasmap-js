@@ -2,14 +2,12 @@
   "version": "0.8.0",
   "description": "ATLAS Map UI",
   "main": "atlasmap.js",
-  "name": "atlasmap",
+  "name": "atlasmap-js",
   "author": "antihax",
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
