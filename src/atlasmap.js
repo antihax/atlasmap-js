@@ -55,8 +55,10 @@ function setupMap(config) {
 				let search = document.getElementById('searchBox').value.toLowerCase();
 				let exact = false;
 				map.IslandResources.eachLayer(function (layer) {
+					console.log(layer);
 					if (search !== '') {
 						if (
+							layer.name.toLowerCase().includes(search) ||
 							layer.animals.find(function (element) {
 								if (element === null) return;
 								if (element.toLowerCase() === search) {
@@ -647,6 +649,7 @@ function setupMap(config) {
 					circle.animals = [];
 					circle.resources = [];
 					circle.biomes = [];
+					circle.name = island.name;
 					circle.animals = island.animals.slice();
 
 					if (island.biomes) {
