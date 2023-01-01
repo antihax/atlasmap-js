@@ -1,7 +1,7 @@
 /* global require, __dirname */
 const path = require('path');
 
-const isProduction = process.env.NODE_ENV == 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');

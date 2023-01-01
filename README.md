@@ -26,8 +26,15 @@ The ATLAS Map UI can be utilized to create your own resource map for a custom se
 # Development
 This requires npm for development.
 
-## Development build
+## Live Coding
+Launch a webserver and webpack watch to allow live coding.
+The `./public` folder will need basic json export and tiles added.
+```
+npm run dev
+```
 
+
+## Development build
 ```
 npm run build:dev
 ```
