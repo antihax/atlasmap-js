@@ -84,10 +84,26 @@ L.AtlasGrid = L.LayerGroup.extend({
 	},
 
 	_drawGridBoarderOverrides: function (x, y, g) {
-		this._getGridBoarderOverridePosition([this._xTickSize * (x + 1), this._yTickSize * y + this._yTickSize / 2], g.DestEast, 90);
-		this._getGridBoarderOverridePosition([this._xTickSize * x, this._yTickSize * y + this._yTickSize / 2], g.DestWest, 270);
-		this._getGridBoarderOverridePosition([this._xTickSize * x + this._xTickSize / 2, this._yTickSize * y], g.DestNorth, 0);
-		this._getGridBoarderOverridePosition([this._xTickSize * x + this._xTickSize / 2, this._yTickSize * (y + 1)], g.DestSouth, 180);
+		this._getGridBoarderOverridePosition(
+			[this._xTickSize * (x + 1), this._yTickSize * y + this._yTickSize / 2],
+			g.DestEast,
+			90,
+		);
+		this._getGridBoarderOverridePosition(
+			[this._xTickSize * x, this._yTickSize * y + this._yTickSize / 2],
+			g.DestWest,
+			270,
+		);
+		this._getGridBoarderOverridePosition(
+			[this._xTickSize * x + this._xTickSize / 2, this._yTickSize * y],
+			g.DestNorth,
+			0,
+		);
+		this._getGridBoarderOverridePosition(
+			[this._xTickSize * x + this._xTickSize / 2, this._yTickSize * (y + 1)],
+			g.DestSouth,
+			180,
+		);
 	},
 
 	_drawGridBorderPin: function (sX1, sY1, sX2, sY2, icon, title, angle) {
@@ -135,43 +151,6 @@ L.AtlasGrid = L.LayerGroup.extend({
 				const grid = String.fromCharCode(65 + x) + (y + 1);
 
 				this._drawGridBoarderOverrides(x, y, grids[grid]);
-
-				let color = 'white';
-				let dropcolor = 'black';
-				console.log(grids[grid].biomes)
-				switch (findGlobalBiome(grids[grid].biomes)) {
-					case 'Temperate':
-						color = 'Red';
-						dropcolor = 'Grey';
-						break;
-					case 'Tundra':
-						color = 'Blue';
-						dropcolor = 'White';
-						break;
-					case 'Equatorial':
-						color = 'Yellow';
-						dropcolor = 'White';
-						break;
-					case 'Polar':
-						color = 'Blue';
-						dropcolor = 'Black';
-						break;
-					case 'Desert':
-						color = 'Yellow';
-						dropcolor = 'Black';
-						break;
-					case 'Tropical':
-						color = 'Green';
-						dropcolor = 'White';
-						break;
-					case 'Tropics':
-						color = 'Green';
-						dropcolor = 'White';
-						break;
-
-					default:
-						color = 'White';
-				}
 
 				let serverType = '';
 				let serverTypeName = 'Lawless';
