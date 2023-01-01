@@ -40,6 +40,18 @@ L.AtlasGrid = L.LayerGroup.extend({
 
 	onAdd: function (map) {
 		this._map = map;
+
+		// zoom map text
+		map.on('zoomend', function () {
+			let gridHeader = document.querySelectorAll('.leaflet-grid-header');
+			if (gridHeader) {
+				let size = 7 + map.getZoom() * 2.5;
+				for (let i = 0; i < gridHeader.length; ++i) {
+					gridHeader[i].style.fontSize = size + 'px';
+				}
+			}
+		});
+
 		let bounds = map._originalBounds;
 		this._xTickSize = (bounds.getEast() - bounds.getWest()) / this.options.xticks;
 		this._yTickSize = (bounds.getSouth() - bounds.getNorth()) / this.options.yticks;
@@ -177,7 +189,7 @@ L.AtlasGrid = L.LayerGroup.extend({
 						break;
 				}
 
-				let text = `<div><div class="leaflet-grid-header">${grid}</div> <div class="leaflet-grid-icon">${serverType}</div>`;
+				let text = `<div><div class="leaflet-grid-header">${grid}</div> <div class="leaflet-grid-header leaflet-grid-icon">${serverType}</div>`;
 				let tooltip = L.marker(
 					[bounds.getWest() + this._yTickSize * y, bounds.getNorth() + this._xTickSize * x],
 					{
