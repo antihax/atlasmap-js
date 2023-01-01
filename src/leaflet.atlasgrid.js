@@ -63,56 +63,31 @@ L.AtlasGrid = L.LayerGroup.extend({
 		this.eachLayer(this.removeLayer, this);
 	},
 
-	_drawGridBoarderOverrides: function (x, y, g) {
+	_getGridBoarderOverridePosition: function (startVector, directionVector, angle) {
+		// SGE can give us conflicting information.
+		if (
+			directionVector[0] === null ||
+			directionVector.reduce(function (a, b) {
+				return a + b;
+			}, 2) === 0
+		)
+			return;
+
 		let icon = L.icon({
 			iconUrl: 'icons/Arrow2.svg',
 			iconSize: [8, 8],
 			iconAnchor: [4, 0],
 		});
-		if (g.DestEast[0] !== null &&
-			g.DestEast.reduce(function (a, b) {
-				return a + b;
-			}, 2) > 0
-		) {
-			let sX1 = this._xTickSize * (x + 1);
-			let sY1 = this._yTickSize * y + this._yTickSize / 2;
-			let sX2 = this._xTickSize * g.DestEast[0] + this._xTickSize / 2;
-			let sY2 = this._yTickSize * g.DestEast[1] + this._yTickSize / 2;
-			this._drawGridBorderPin(sX1, sY1, sX2, sY2, icon, 'Grid Transfer', 90);
-		}
-		if (g.DestWest[0] !== null &&
-			g.DestWest.reduce(function (a, b) {
-				return a + b;
-			}, 2) > 0
-		) {
-			let sX1 = this._xTickSize * x;
-			let sY1 = this._yTickSize * y + this._yTickSize / 2;
-			let sX2 = this._xTickSize * g.DestWest[0] + this._xTickSize / 2;
-			let sY2 = this._yTickSize * g.DestWest[1] + this._yTickSize / 2;
-			this._drawGridBorderPin(sX1, sY1, sX2, sY2, icon, 'Grid Transfer', 270);
-		}
-		if (g.DestNorth[0] !== null &&
-			g.DestNorth.reduce(function (a, b) {
-				return a + b;
-			}, 2) > 0
-		) {
-			let sX1 = this._xTickSize * x + this._xTickSize / 2;
-			let sY1 = this._yTickSize * y;
-			let sX2 = this._xTickSize * g.DestNorth[0] + this._xTickSize / 2;
-			let sY2 = this._yTickSize * g.DestNorth[1] + this._yTickSize / 2;
-			this._drawGridBorderPin(sX1, sY1, sX2, sY2, icon, 'Grid Transfer', 0);
-		}
-		if (g.DestSouth[0] !== null &&
-			g.DestSouth.reduce(function (a, b) {
-				return a + b;
-			}, 2) > 0
-		) {
-			let sX1 = this._xTickSize * x + this._xTickSize / 2;
-			let sY1 = this._yTickSize * (y + 1);
-			let sX2 = this._xTickSize * g.DestSouth[0] + this._xTickSize / 2;
-			let sY2 = this._yTickSize * g.DestSouth[1] + this._yTickSize / 2;
-			this._drawGridBorderPin(sX1, sY1, sX2, sY2, icon, 'Grid Transfer', 180);
-		}
+		let x = this._xTickSize * directionVector[0] + this._xTickSize / 2;
+		let y = this._yTickSize * directionVector[1] + this._yTickSize / 2;
+		this._drawGridBorderPin(startVector[0], startVector[1], x, y, icon, 'Grid Transfer', angle);
+	},
+
+	_drawGridBoarderOverrides: function (x, y, g) {
+		this._getGridBoarderOverridePosition([this._xTickSize * (x + 1), this._yTickSize * y + this._yTickSize / 2], g.DestEast, 90);
+		this._getGridBoarderOverridePosition([this._xTickSize * x, this._yTickSize * y + this._yTickSize / 2], g.DestWest, 270);
+		this._getGridBoarderOverridePosition([this._xTickSize * x + this._xTickSize / 2, this._yTickSize * y], g.DestNorth, 0);
+		this._getGridBoarderOverridePosition([this._xTickSize * x + this._xTickSize / 2, this._yTickSize * (y + 1)], g.DestSouth, 180);
 	},
 
 	_drawGridBorderPin: function (sX1, sY1, sX2, sY2, icon, title, angle) {
@@ -163,6 +138,7 @@ L.AtlasGrid = L.LayerGroup.extend({
 
 				let color = 'white';
 				let dropcolor = 'black';
+				console.log(grids[grid].biomes)
 				switch (findGlobalBiome(grids[grid].biomes)) {
 					case 'Temperate':
 						color = 'Red';
