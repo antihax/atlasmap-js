@@ -22,6 +22,7 @@ const config = {
 		}),
 		new CopyPlugin({
 			patterns: [
+				{from: 'atlasIcons/*', context: "src/"},
 				{from: 'icons/*', context: "src/"},
 				{from: 'images/*', context: "src/"},
 				{from: '*.png', context: "src/"},
