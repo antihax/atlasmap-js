@@ -278,6 +278,8 @@ L.Map.mergeOptions({
 });
 
 L.Map.addInitHook(function () {
-	this.pinControl = new L.Control.Pin();
-	this.addControl(this.pinControl);
+	if (this.options.config.PinTool) {
+		this.pinControl = new L.Control.Pin();
+		this.addControl(this.pinControl);
+	}
 });

@@ -10,6 +10,8 @@ import './leaflet.pathfinder.js';
 import './leaflet.atlasgrid.js';
 import './leaflet.rotatedmarker.js';
 import './leaflet.atlasmap.js';
+import './leaflet.accountservice.js';
+import './leaflet.movingmarker.js';
 import './atlasmap.js';
 
 import 'leaflet/dist/leaflet.css';

@@ -395,6 +395,8 @@ L.Map.mergeOptions({
 });
 
 L.Map.addInitHook(function () {
-	this.pinControl = new L.Control.PathFinder();
-	this.addControl(this.pinControl);
+	if (this.options.config.PathFinder) {
+		this.pinControl = new L.Control.PathFinder();
+		this.addControl(this.pinControl);
+	}
 });

@@ -295,7 +295,7 @@ L.Map.mergeOptions({
 });
 
 L.Map.addInitHook(function () {
-	if (this.options.measureControl) {
+	if (this.options.config.WarehouseTool) {
 		this.measureControl = new L.Control.Measure();
 		this.addControl(this.measureControl);
 	}

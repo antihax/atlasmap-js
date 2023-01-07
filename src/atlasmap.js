@@ -107,9 +107,6 @@ function setupMap(config) {
 	});
 	new SearchBox().addTo(map);
 
-	let measureControl = new L.Control.Measure({});
-	measureControl.addTo(map);
-
 	// Add Layer Control
 	L.control
 		.layers(
@@ -167,13 +164,15 @@ function setupMap(config) {
 
 	map.setView([-128, 128], 2);
 
-	L.easyButton('<div>📝</div>', function () {
-		window.open('items.html', '_self');
-	}).addTo(map);
+	if (config.ItemLink)
+		L.easyButton('<div>📝</div>', function () {
+			window.open('items.html', '_self');
+		}).addTo(map);
 
-	L.easyButton('<div>☕</div>', function () {
-		window.open('https://ko-fi.com/antihax', '_blank');
-	}).addTo(map);
+	if (config.KofiLink)
+		L.easyButton('<div>☕</div>', function () {
+			window.open('https://ko-fi.com/antihax', '_blank');
+		}).addTo(map);
 
 	let ArrowIcon = L.icon({
 		iconUrl: 'icons/Arrow.svg',
