@@ -41,6 +41,12 @@ L.Control.AccountService = L.Control.extend({
 				popupAnchor: [0, -15],
 			});
 		}
+		this._icons.dead = L.icon({
+			iconUrl: '/atlasIcons/entities/sunk.png',
+			iconSize: [30, 30],
+			iconAnchor: [15, 15],
+			popupAnchor: [0, -15],
+		});
 	},
 
 	onAdd: function (map) {
@@ -101,27 +107,35 @@ L.Control.AccountService = L.Control.extend({
 
 			case 'Bed':
 			case 'ETribeEntityType::Bed':
-				console.dir(d); // slap bed on map
+				this._trackShip(d);
 				break;
 		}
 	},
 	_trackShip: function (d) {
+		if (d.ParentEntityID !== 0) 
+			return; // ignore child entities (beds on ships)
+
 		// Get server grid reference.
 		let duration = 5000,
-			x = d.ServerId >> 16,
-			y = d.ServerId & 0xffff,
+			x = d.ServerID >> 16,
+			y = d.ServerID & 0xffff,
 			unrealX = this._map.options.config.GridSize * d.X + this._map.options.config.GridSize * x,
 			unrealY = this._map.options.config.GridSize * d.Y + this._map.options.config.GridSize * y,
 			gps = this._map.worldToLeaflet(unrealX, unrealY);
-
 		let ship = this._ships[d.EntityID];
 		if (ship === undefined) {
 			if (this._icons[d.ShipType] !== undefined) {
-				ship = L.Marker.movingMarker([gps], [duration], {icon: this._icons[d.ShipType], title: d.EntityName }).addTo(
-					this._map,
-				);
+				ship = L.Marker.movingMarker([gps], [duration], {
+					icon: d.IsDead ? this._icons.dead : this._icons[d.ShipType],
+					title: d.EntityName,
+				}).addTo(this._map);
 			} else {
-				ship = L.Marker.movingMarker([gps], [duration]).addTo(this._map);
+				if (d.ParentEntityID === 0) {
+					ship = L.Marker.movingMarker([gps], [duration],{
+						icon: d.EntityType === "Bed" ? this._icons.Bed : null,
+						title: d.EntityName,
+					}).addTo(this._map);
+				}
 			}
 		}
 
