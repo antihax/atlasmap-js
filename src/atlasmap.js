@@ -166,7 +166,11 @@ function setupMap(config) {
 
 	if (config.ItemLink)
 		L.easyButton('<div>📝</div>', function () {
-			window.open('items.html', '_self');
+			const params = new URLSearchParams(window.location.search);
+			let v = params.get('v');
+			if (v === null) v = "";
+			else v = parseInt(v) + 1;
+			window.open('items.html?v='+params.get('v'), '_self');
 		}).addTo(map);
 
 	if (config.KofiLink)

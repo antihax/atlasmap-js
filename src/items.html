@@ -120,7 +120,7 @@
                     return obj.Name;
                 },
                 prefetch: {
-                    url: '/json/items.json',
+                    url: '/json'+version+'/items.json',
                     filter: function(list) {
                         return $.map(list, function(v, k) {
                             if (!v.ClassName)
