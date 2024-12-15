@@ -77,28 +77,23 @@ function setupMap(config) {
 								if (exact) return false;
 								return element.toLowerCase().includes(search);
 							})
-						)
+						) {
 							layer.setStyle({
 								radius: 1.5,
-								color: '#f00',
-								opacity: 1,
-								fillOpacity: 1,
 							});
-						else
+							L.DomUtil.addClass(layer._path, 'resource-found');
+						} else {
 							layer.setStyle({
 								radius: 1.5,
-								color: '#f00',
-								opacity: 0,
-								fillOpacity: 0.0,
 							});
+							L.DomUtil.removeClass(layer._path, 'resource-found');
+						}
 					} else {
 						exact = false;
 						layer.setStyle({
 							radius: 1.5,
-							color: '#f00',
-							opacity: 0,
-							fillOpacity: 0.0,
 						});
+						L.DomUtil.removeClass(layer._path, 'resource-found');
 					}
 				});
 			};
@@ -168,9 +163,9 @@ function setupMap(config) {
 		L.easyButton('<div>📝</div>', function () {
 			const params = new URLSearchParams(window.location.search);
 			let v = params.get('v');
-			if (v === null) v = "";
+			if (v === null) v = '';
 			else v = parseInt(v) + 1;
-			window.open('items.html?v='+params.get('v'), '_self');
+			window.open('items.html?v=' + params.get('v'), '_self');
 		}).addTo(map);
 
 	if (config.KofiLink)
