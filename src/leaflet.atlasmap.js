@@ -71,8 +71,8 @@ L.AtlasMap = L.Map.extend({
 		let pX = parseInt(parts[2]) + config.GridSize / 2;
 		let pY = parseInt(parts[1]) + config.GridSize / 2;
 		let [long, lat] = this.worldToLeaflet(
-			pY + config.GridSize * gridY,
 			pX + config.GridSize * gridX,
+			pY + config.GridSize * gridY,
 		);
 
 		return [long, lat];
