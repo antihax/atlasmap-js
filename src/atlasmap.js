@@ -530,7 +530,7 @@ function setupMap(config) {
 		.then((res) => res.json())
 		.then(function (shops) {
 			shops.forEach((shop) => {
-				let pin = new L.Marker(CheatToLeaflet(shop.location), {
+				let pin = new L.Marker(map.cheatToLeaflet(shop.location), {
 					icon: shopIcon,
 				});
 
